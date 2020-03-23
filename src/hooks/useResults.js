@@ -14,6 +14,7 @@ export default () => {
           location: 'legionowo'
         }
       });
+      setErrorMessage('');
       setResults(response.data.businesses);
     } catch (err) {
       setErrorMessage('Something went wrong');
