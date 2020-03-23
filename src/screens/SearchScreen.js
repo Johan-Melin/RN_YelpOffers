@@ -9,7 +9,7 @@ const SearchScreen = () => {
   const [searchApi, results, errorMessage] = useResults();
 
   const filterResultsByPrice = price => {
-    // price === '$' || '$$' || '$$$'
+    // price === '$' || '$$' || '$$$' || '$$$$'
     return results.filter(result => {
       return result.price === price;
     });
@@ -23,21 +23,22 @@ const SearchScreen = () => {
         onTermSubmit={() => searchApi(term)}
       />
       {errorMessage ? <Text>{errorMessage}</Text> : null}
+      <Text style={styles.text}>We have found {results.length} businesses</Text>
       <ScrollView>
-        <ResultsList
-          results={filterResultsByPrice('$')}
-          title="Cost Effective"
-        />
-        <ResultsList results={filterResultsByPrice('$$')} title="Bit Pricier" />
-        <ResultsList
-          results={filterResultsByPrice('$$$')}
-          title="Big Spender"
-        />
+        <ResultsList results={filterResultsByPrice("$")}        title='Cheap' />
+        <ResultsList results={filterResultsByPrice("$$")}       title='Medium priced' />
+        <ResultsList results={filterResultsByPrice(undefined)}  title='Uncategorized' />
+        <ResultsList results={filterResultsByPrice("$$$")}      title='Expensive' />
+        <ResultsList results={filterResultsByPrice("$$$$")}     title='Highest priced' />
       </ScrollView>
     </>
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  text: {
+    marginLeft: 15
+  }
+});
 
 export default SearchScreen;
